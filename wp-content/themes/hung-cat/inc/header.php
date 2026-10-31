@@ -4,6 +4,22 @@ $hotline     = hc_contact( 'contact_hotline' );
 $cskh        = hc_contact( 'contact_cskh' );
 $email       = hc_contact( 'contact_email' );
 $logo        = hc_logo( 'logo_header', 'logo.webp', 93, 61 );
+
+// Current section, to highlight its menu item (red + aria-current) like hungcat-static
+$section = trim( (string) wp_parse_url( $_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH ), '/' );
+$section = strtok( $section, '/' ) ?: 'home';
+if ( is_singular( 'products' ) || is_post_type_archive( 'products' ) ) {
+	$section = 'products';
+} elseif ( is_singular( 'post' ) || is_category() || is_tag() ) {
+	$section = 'news';
+}
+$nav_items = array(
+	'home'     => array( '/', 'Trang chủ' ),
+	'about'    => array( '/about/', 'Giới thiệu' ),
+	'products' => array( '/products/', 'Sản phẩm' ),
+	'news'     => array( '/news/', 'Tin tức' ),
+	'contact'  => array( '/contact/', 'Liên hệ' ),
+);
 ?>
 <header class="header">
   <div class="header-contact">
@@ -38,21 +54,11 @@ $logo        = hc_logo( 'logo_header', 'logo.webp', 93, 61 );
     </div>
     <nav class="header-nav" id="header-nav">
       <ul class="header-nav-list">
-        <li class="header-nav-item header-nav-item--active">
-          <a href="/" class="header-nav-link">Trang chủ</a>
-        </li>
-        <li class="header-nav-item">
-          <a href="/about/" class="header-nav-link">Giới thiệu</a>
-        </li>
-        <li class="header-nav-item">
-          <a href="/products/" class="header-nav-link">Sản phẩm</a>
-        </li>
-        <li class="header-nav-item">
-          <a href="/news/" class="header-nav-link">Tin tức</a>
-        </li>
-        <li class="header-nav-item">
-          <a href="/contact/" class="header-nav-link">Liên hệ</a>
-        </li>
+        <?php foreach ( $nav_items as $key => list( $link, $label ) ) : ?>
+          <li class="header-nav-item<?= $key === $section ? ' header-nav-item--active' : '' ?>">
+            <a href="<?= esc_url( $link ) ?>" class="header-nav-link"<?= $key === $section ? ' aria-current="page"' : '' ?>><?= esc_html( $label ) ?></a>
+          </li>
+        <?php endforeach; ?>
         <li class="header-nav-item--small-only mt-10 w-[calc(100%-40px)]">
           <div class="flex gap-1.5 w-full justify-center">
             <a href="tel:<?= esc_attr( hc_tel( $hotline ) ) ?>" class="hotline-number">

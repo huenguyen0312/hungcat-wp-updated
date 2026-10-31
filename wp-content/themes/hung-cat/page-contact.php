@@ -13,6 +13,9 @@ $images = get_template_directory_uri() . '/assets/images';
         <div class="contact-main-content">
           <div class="contact-form js-animate">
             <p>Liên hệ ngay với chúng tôi để được tư vấn và hỗ trợ tốt nhất</p>
+            <?php if ( $form_id = hc_quote_form_id() ) : ?>
+              <?= do_shortcode( '[contact-form-7 id="' . $form_id . '" html_class="form"]' ) ?>
+            <?php else : ?>
             <form action="" class="form">
               <div class="form-group">
                 <label for="name" class="form-label">Họ tên (*)</label>
@@ -37,6 +40,7 @@ $images = get_template_directory_uri() . '/assets/images';
                 <button type="button" class="button">Gửi liên hệ</button>
               </div>
             </form>
+            <?php endif; ?>
           </div>
           <div class="contact-info js-animate">
             <h3 class="company-name">Công ty Cổ phần Hưng Cát</h3>

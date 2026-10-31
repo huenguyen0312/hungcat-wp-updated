@@ -72,10 +72,9 @@ add_action( 'init', 'add_custom_taxonomy', 0 );
 
 add_filter('wpcf7_autop_or_not', '__return_false');
 
-/*Contact form 7 remove span*/
+/*Contact form 7 remove br*/
+// Keep the .wpcf7-form-control-wrap spans: CF7's JS needs them to show per-field validation errors
 add_filter('wpcf7_form_elements', function($content) {
-    $content = preg_replace('/<(span).*?class="\s*(?:.*\s)?wpcf7-form-control-wrap(?:\s[^"]+)?\s*"[^\>]*>(.*)<\/\1>/i', '\2', $content);
-
     $content = str_replace('<br />', '', $content);
 
     return $content;

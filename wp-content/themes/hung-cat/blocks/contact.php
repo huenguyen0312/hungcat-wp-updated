@@ -3,6 +3,9 @@
     <div class="contact-content js-animate">
       <h2 class="contact-title">Đăng ký để nhận thông tin<br class="sp-visible"> tư vấn và báo giá</h2>
       <div class="contact-form">
+        <?php if ( $form_id = hc_quote_form_id() ) : ?>
+          <?= do_shortcode( '[contact-form-7 id="' . $form_id . '" html_class="form"]' ) ?>
+        <?php else : ?>
         <form action="" class="form">
           <div class="form-group">
             <label for="name" class="form-label">Họ tên (*)</label>
@@ -35,6 +38,7 @@
 
           <p class="form-note">Chúng tôi cam kết bảo mật thông tin và không gửi email spam đến khách hàng.</p>
         </form>
+        <?php endif; ?>
       </div>
     </div>
   </div>
