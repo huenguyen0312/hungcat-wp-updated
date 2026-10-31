@@ -12,7 +12,7 @@ function hc_page_meta() {
 		),
 		'contact'        => array(
 			'title'       => 'Bao bì Hưng Cát | Liên hệ',
-			'description' => 'Liên hệ Bao bì Hưng Cát để được tư vấn và báo giá túi PE, PP, túi zip. Hotline 0917.388.591 - CSKH 0834.121.193. Km110+500 QL10, Mỹ Xá, Nam Định.',
+			'description' => 'Liên hệ Bao bì Hưng Cát để được tư vấn và báo giá túi PE, PP, túi zip. Hotline ' . hc_contact( 'contact_hotline' ) . ' - CSKH ' . hc_contact( 'contact_cskh' ) . '. ' . hc_contact( 'contact_address', 'Km110+500 QL10, Mỹ Xá, Nam Định' ) . '.',
 		),
 		'products'       => array(
 			'title'       => 'Bao bì Hưng Cát | Sản phẩm',

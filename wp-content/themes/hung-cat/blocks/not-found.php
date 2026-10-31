@@ -1,3 +1,7 @@
+<?php
+$hotline = hc_contact( 'contact_hotline' );
+$cskh    = hc_contact( 'contact_cskh' );
+?>
 <section class="not-found">
   <div class="not-found-container container">
     <p class="not-found-code" aria-hidden="true">4<span class="not-found-code__accent">0</span>4</p>
@@ -12,8 +16,8 @@
     </div>
     <p class="not-found-hotline">
       <span class="material-symbols-outlined not-found-hotline__icon">phone_in_talk</span>
-      Hotline: <a href="tel:0917388591" class="font-bold">0917.388.591</a>
-      &nbsp;-&nbsp; CSKH: <a href="tel:0834121193" class="font-bold">0834.121.193</a>
+      Hotline: <a href="tel:<?= esc_attr( hc_tel( $hotline ) ) ?>" class="font-bold"><?= esc_html( $hotline ) ?></a>
+      &nbsp;-&nbsp; CSKH: <a href="tel:<?= esc_attr( hc_tel( $cskh ) ) ?>" class="font-bold"><?= esc_html( $cskh ) ?></a>
     </p>
   </div>
 </section>

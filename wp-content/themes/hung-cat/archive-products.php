@@ -14,15 +14,7 @@ $posts = new WP_Query( array(
 
 ?>
   <main class="product-page">
-    <section class="sub-keyvisual">
-      <div class="sub-keyvisual-container container">
-        <picture>
-          <source media="(min-width:768px)" srcset="<?= $images ?>/products/img-keyvisual.webp" type="image/webp">
-          <source media="(max-width:767px)" srcset="<?= $images ?>/products/img-keyvisual-sp.webp" type="image/webp">
-          <img src="<?= $images ?>/products/img-keyvisual.webp" alt="" class="sub-keyvisual-image" fetchpriority="high">
-        </picture>
-      </div>
-    </section>
+    <?php get_template_part( 'blocks/sub-keyvisual', null, array( 'page' => 'products' ) ); ?>
 
     <div class="breadcrumb">
       <div class="breadcrumb-container container">

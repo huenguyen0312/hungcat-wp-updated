@@ -1,26 +1,35 @@
 <?php
 $images       = get_template_directory_uri() . "/assets/images";
+$hotline     = hc_contact( 'contact_hotline' );
+$cskh        = hc_contact( 'contact_cskh' );
+$email       = hc_contact( 'contact_email' );
+$address     = hc_contact( 'contact_address' );
+$work_hours  = hc_contact( 'contact_work_hours' );
+$work_days   = hc_contact( 'contact_work_days' );
+$messenger   = hc_contact( 'contact_messenger' );
+$facebook    = hc_contact( 'contact_facebook' );
+$logo        = hc_logo( 'logo_footer', 'logo-footer.webp', 95, 64 );
 ?>
 <footer class="footer">
   <div class="footer-container container">
     <div class="footer-column">
       <div class="footer-logo">
         <div class="company-logo">
-          <img src="<?= $images ?>/logo-footer.webp" alt="Bao bì Hưng Cát" width="95" height="64">
+          <img src="<?= esc_url( $logo['src'] ) ?>" alt="<?= esc_attr( $logo['alt'] ) ?>" width="<?= $logo['width'] ?>" height="<?= $logo['height'] ?>">
         </div>
-        <h2 class="company-name">CÔNG TY CỔ PHẦN HƯNG CÁT</h2>
+        <h2 class="company-name"><?= esc_html( hc_contact( 'company_name' ) ) ?></h2>
       </div>
       <div class="company-info">
         <p class="footer-text"><span class="material-symbols-outlined footer-text-icon">pin_drop</span>
-          Địa chỉ: Km110+500 quốc lộ 10, phường Mỹ Xá, thành phố Nam Định, tỉnh Nam Định</p>
+          Địa chỉ: <?= esc_html( $address ) ?></p>
         <p class="footer-text"><span class="material-symbols-outlined footer-text-icon">mail</span><span class="block">
-            Email: <b>vthungcat@gmail.com</b></span>
+            Email: <b><?= esc_html( $email ) ?></b></span>
         </p>
         <p class="footer-text"><span class="material-symbols-outlined footer-text-icon">call</span><span class="block">
-            Hotline: &nbsp;<b>0917.388.591</b> &nbsp; - CSKH: &nbsp;<b>0834.121193</b></span>
+            Hotline: &nbsp;<b><?= esc_html( $hotline ) ?></b> &nbsp; - CSKH: &nbsp;<b><?= esc_html( hc_contact( 'contact_cskh', '0834.121193' ) ) ?></b></span>
         </p>
         <p class="footer-text"><span class="material-symbols-outlined footer-text-icon">schedule</span><span
-            class="block">Thời gian làm việc: <b>07h15-17h00</b> Từ <b>thứ 2 - thứ 7</b></span></p>
+            class="block">Thời gian làm việc: <b><?= esc_html( $work_hours ) ?></b> Từ <b><?= esc_html( $work_days ) ?></b></span></p>
       </div>
     </div>
     <div class="footer-column">
@@ -38,12 +47,11 @@ $images       = get_template_directory_uri() . "/assets/images";
       <div class="footer-group footer-group--certificate">
         <h3 class="footer-title">Chứng nhận</h3>
         <div class="footer-certificate">
+          <?php foreach ( hc_certificates() as $certificate ) : ?>
           <div class="certificate-image">
-            <img src="<?= $images ?>/certificate-01.webp" alt="Chứng nhận 1" loading="lazy">
+            <img src="<?= esc_url( $certificate['src'] ) ?>" alt="<?= esc_attr( $certificate['alt'] ) ?>" loading="lazy">
           </div>
-          <div class="certificate-image">
-            <img src="<?= $images ?>/certificate-02.webp" alt="Chứng nhận 1" loading="lazy">
-          </div>
+          <?php endforeach; ?>
         </div>
       </div>
     </div>
@@ -61,7 +69,7 @@ $images       = get_template_directory_uri() . "/assets/images";
       <div class="footer-group footer-group--facebook">
         <h3 class="footer-title">Kết nối Facebook</h3>
         <!-- Temporary link until the Facebook page plugin is embedded -->
-        <a href="https://www.facebook.com/profile.php?id=61564076172519" class="footer-facebook" target="_blank" rel="noopener">
+        <a href="<?= esc_url( $facebook ) ?>" class="footer-facebook" target="_blank" rel="noopener">
           <span class="footer-facebook__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M13.5 21v-7.5h2.5l.4-3h-2.9V8.6c0-.9.3-1.5 1.5-1.5h1.5V4.4c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.4H8.1v3h2.5V21h2.9z"/></svg>
           </span>
@@ -82,16 +90,16 @@ $images       = get_template_directory_uri() . "/assets/images";
       <button type="button" class="social-icon social-icon--loopflicker js-show-phone-number" aria-label="Hiện số điện thoại" aria-expanded="false" aria-controls="footer-phone-number">
         <img src="<?= $images ?>/icon-call.webp" alt="" height="30" width="30">
       </button>
-      <a href="https://www.facebook.com/profile.php?id=61564076172519" class="social-icon" target="_blank" rel="noopener" aria-label="Nhắn tin qua Messenger">
+      <a href="<?= esc_url( $messenger ) ?>" class="social-icon" target="_blank" rel="noopener" aria-label="Nhắn tin qua Messenger">
         <img src="<?= $images ?>/icon-messenger.webp" alt="" height="30" width="30">
       </a>
-      <a href="https://zalo.me/0834121193" class="social-icon" target="_blank" rel="noopener" aria-label="Nhắn tin qua Zalo">
+      <a href="https://zalo.me/<?= esc_attr( hc_tel( $cskh ) ) ?>" class="social-icon" target="_blank" rel="noopener" aria-label="Nhắn tin qua Zalo">
         <img src="<?= $images ?>/icon-zalo.webp" alt="" height="30" width="30">
       </a>
       <div class="phone-number js-phone-number" id="footer-phone-number">
         <ul>
-          <li class="phone-number-item">CSKH: <a href="tel:0834121193">0834.121.193</a></li>
-          <li class="phone-number-item">Hotline: <a href="tel:0917388591">0917.388.591</a></li>
+          <li class="phone-number-item">CSKH: <a href="tel:<?= esc_attr( hc_tel( $cskh ) ) ?>"><?= esc_html( $cskh ) ?></a></li>
+          <li class="phone-number-item">Hotline: <a href="tel:<?= esc_attr( hc_tel( $hotline ) ) ?>"><?= esc_html( $hotline ) ?></a></li>
         </ul>
       </div>
     </div>

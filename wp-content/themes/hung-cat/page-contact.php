@@ -41,11 +41,11 @@ $images = get_template_directory_uri() . '/assets/images';
           <div class="contact-info js-animate">
             <h3 class="company-name">Công ty Cổ phần Hưng Cát</h3>
             <p class="company-description">
-              Email: <b><span class="text-blue">vthungcat@gmail.com</span></b><br>
+              Email: <b><span class="text-blue"><?= esc_html( hc_contact( 'contact_email' ) ) ?></span></b><br>
               Website: <b><span class="text-blue">baobihungcat.com</span></b><br>
-              Hotline: <b><span class="text-blue">0917.388.591</span></b><br>
-              CSKH: <b><span class="text-blue">0834.121193</span></b><br>
-              Thời gian làm việc: <b>07h15-17h00 từ thứ 2 - thứ 7 </b><br>
+              Hotline: <b><span class="text-blue"><?= esc_html( hc_contact( 'contact_hotline' ) ) ?></span></b><br>
+              CSKH: <b><span class="text-blue"><?= esc_html( hc_contact( 'contact_cskh', '0834.121193' ) ) ?></span></b><br>
+              Thời gian làm việc: <b><?= esc_html( hc_contact( 'contact_work_hours' ) ) ?> từ <?= esc_html( hc_contact( 'contact_work_days' ) ) ?></b><br>
             </p>
             <div class="map">
               <div class="iframe">
@@ -54,7 +54,7 @@ $images = get_template_directory_uri() . '/assets/images';
                   style="border:0;" allowfullscreen="" loading="lazy"
                   referrerpolicy="no-referrer-when-downgrade"></iframe>
               </div>
-              <p>Địa chỉ: Km110+500 quốc lộ 10, phường Mỹ Xá, thành phố Nam Định, tỉnh Nam Định</p>
+              <p>Địa chỉ: <?= esc_html( hc_contact( 'contact_address' ) ) ?></p>
             </div>
           </div>
         </div>

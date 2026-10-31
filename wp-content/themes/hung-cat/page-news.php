@@ -7,15 +7,7 @@ $images = get_template_directory_uri() . '/assets/images';
 include get_template_directory() . '/inc/news-data.php';
 ?>
   <main class="news-page">
-    <section class="sub-keyvisual">
-      <div class="sub-keyvisual-container container">
-        <picture>
-          <source media="(min-width:768px)" srcset="<?= $images ?>/news/img-keyvisual.webp" type="image/webp">
-          <source media="(max-width:767px)" srcset="<?= $images ?>/news/img-keyvisual-sp.webp" type="image/webp">
-          <img src="<?= $images ?>/news/img-keyvisual.webp" alt="" class="sub-keyvisual-image" fetchpriority="high">
-        </picture>
-      </div>
-    </section>
+    <?php get_template_part( 'blocks/sub-keyvisual', null, array( 'page' => 'news' ) ); ?>
 
     <div class="breadcrumb">
       <div class="breadcrumb-container container">

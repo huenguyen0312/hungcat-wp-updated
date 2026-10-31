@@ -9,15 +9,7 @@ $images = get_template_directory_uri() . '/assets/images';
   <main class="about-page">
     <!-- contact form-->
 
-    <section class="sub-keyvisual">
-      <div class="sub-keyvisual-container container">
-        <picture>
-          <source media="(min-width:768px)" srcset="<?= $images ?>/about-us/sub-kv.webp" type="image/webp">
-          <source media="(max-width:767px)" srcset="<?= $images ?>/about-us/sub-kv-sp.webp" type="image/webp">
-          <img src="<?= $images ?>/about-us/sub-kv.webp" alt="" class="sub-keyvisual-image" fetchpriority="high">
-        </picture>
-      </div>
-    </section>
+    <?php get_template_part( 'blocks/sub-keyvisual', null, array( 'page' => 'about' ) ); ?>
 
     <div class="breadcrumb">
       <div class="breadcrumb-container container">
@@ -62,11 +54,11 @@ $images = get_template_directory_uri() . '/assets/images';
             <span class="company-contact__title">Thông tin liên hệ</span>
             <span class="company-contact__name">Công ty Cổ phần Hưng Cát</span>
             - Mã số thuế: 0600341499<br>
-            - Địa chỉ: Km110+500 quốc lộ 10, phường Mỹ Xá, TP Nam Định, tỉnh Nam Định<br>
-            - Điện thoại: <span class="text-blue font-bold">0834.121193</span><br class="sp-visible"> - Hotline: <span
-              class="text-blue font-bold">0917.388.591</span><br>
-            - Email: <a href="mailto:vthungcat@gmail.com" class="text-blue underline">vthungcat@gmail.com</a><br>
-            - Thời gian làm việc: <b>07h15-17h00</b> từ <b>thứ 2 - thứ 7</b><br>
+            - Địa chỉ: <?= esc_html( hc_contact( 'contact_address', 'Km110+500 quốc lộ 10, phường Mỹ Xá, TP Nam Định, tỉnh Nam Định' ) ) ?><br>
+            - Điện thoại: <span class="text-blue font-bold"><?= esc_html( hc_contact( 'contact_cskh', '0834.121193' ) ) ?></span><br class="sp-visible"> - Hotline: <span
+              class="text-blue font-bold"><?= esc_html( hc_contact( 'contact_hotline' ) ) ?></span><br>
+            - Email: <a href="mailto:<?= esc_attr( hc_contact( 'contact_email' ) ) ?>" class="text-blue underline"><?= esc_html( hc_contact( 'contact_email' ) ) ?></a><br>
+            - Thời gian làm việc: <b><?= esc_html( hc_contact( 'contact_work_hours' ) ) ?></b> từ <b><?= esc_html( hc_contact( 'contact_work_days' ) ) ?></b><br>
             - Website: <a href="https://baobihungcat.vn" class="text-blue underline">baobihungcat.vn</a>
           </p>
         </div>
