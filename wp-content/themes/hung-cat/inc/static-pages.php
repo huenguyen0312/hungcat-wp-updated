@@ -1,16 +1,17 @@
 <?php
-// Static pages taken from hungcat-static: /products/00/, /news/ and /news/00/
+// Static pages taken from hungcat-static: /products/00/, /news/, /news/00/ and /policy/
 function hc_static_pages_rewrite() {
 	add_rewrite_rule( '^products/00/?$', 'index.php?hc_static_page=product-detail', 'top' );
 	add_rewrite_rule( '^news/?$', 'index.php?hc_static_page=news', 'top' );
 	add_rewrite_rule( '^news/00/?$', 'index.php?hc_static_page=news-detail', 'top' );
 	// Own page var: WP's "paged" would make the main query 404 past its own last page
 	add_rewrite_rule( '^news/page/([0-9]+)/?$', 'index.php?hc_static_page=news&hc_page=$matches[1]', 'top' );
+	add_rewrite_rule( '^policy/?$', 'index.php?hc_static_page=policy', 'top' );
 
 	// Bump when the rules above change, so a deploy picks them up without re-saving Permalinks
-	if ( get_option( 'hc_rewrite_version' ) !== '2' ) {
+	if ( get_option( 'hc_rewrite_version' ) !== '3' ) {
 		flush_rewrite_rules( false );
-		update_option( 'hc_rewrite_version', '2' );
+		update_option( 'hc_rewrite_version', '3' );
 	}
 }
 
@@ -32,6 +33,10 @@ function hc_static_pages_template( $template ) {
 
 	if ( get_query_var( 'hc_static_page' ) === 'news' ) {
 		return get_template_directory() . '/page-news.php';
+	}
+
+	if ( get_query_var( 'hc_static_page' ) === 'policy' ) {
+		return get_template_directory() . '/page-policy.php';
 	}
 
 	if ( get_query_var( 'hc_static_page' ) === 'news-detail' ) {

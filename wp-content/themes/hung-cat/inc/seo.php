@@ -30,6 +30,10 @@ function hc_page_meta() {
 			'title'       => 'Bao bì Hưng Cát | Tin tức - sự kiện',
 			'description' => 'Bài viết từ Bao bì Hưng Cát chia sẻ kiến thức về sản xuất, in ấn bao bì nhựa PE, PP và các tiêu chuẩn chất lượng, bảo vệ môi trường.',
 		),
+		'policy'         => array(
+			'title'       => 'Bao bì Hưng Cát | Chính sách khách hàng',
+			'description' => 'Chính sách bảo hành, giao nhận hàng, phương thức thanh toán, đổi trả và kiểm hàng khi đặt sản xuất bao bì tại Bao bì Hưng Cát.',
+		),
 		'404'            => array(
 			'title'       => 'Bao bì Hưng Cát | Không tìm thấy trang',
 			'description' => 'Không tìm thấy trang bạn yêu cầu. Quay lại trang chủ Bao bì Hưng Cát để xem các sản phẩm bao bì túi PE, PP, túi zip và thông tin liên hệ.',

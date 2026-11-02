@@ -59,11 +59,11 @@ $logo        = hc_logo( 'logo_footer', 'logo-footer.webp', 95, 64 );
       <div class="footer-group footer-group--customer">
         <h3 class="footer-title">Khách hàng cần biết</h3>
         <ul class="footer-list">
-          <li class="footer-item"><a href="#" class="footer-link">- Chính sách bảo hành</a></li>
-          <li class="footer-item"><a href="#" class="footer-link">- Giao hàng và nhận hàng</a></li>
-          <li class="footer-item"><a href="#" class="footer-link">- Phương thức thanh toán</a></li>
-          <li class="footer-item"><a href="#" class="footer-link">- Chính sách đổi trả</a></li>
-          <li class="footer-item"><a href="#" class="footer-link">- Chính sách kiểm hàng</a></li>
+          <li class="footer-item"><a href="/policy/#bao-hanh" class="footer-link">- Chính sách bảo hành</a></li>
+          <li class="footer-item"><a href="/policy/#giao-nhan-hang" class="footer-link">- Giao hàng và nhận hàng</a></li>
+          <li class="footer-item"><a href="/policy/#thanh-toan" class="footer-link">- Phương thức thanh toán</a></li>
+          <li class="footer-item"><a href="/policy/#doi-tra" class="footer-link">- Chính sách đổi trả</a></li>
+          <li class="footer-item"><a href="/policy/#kiem-hang" class="footer-link">- Chính sách kiểm hàng</a></li>
         </ul>
       </div>
       <div class="footer-group footer-group--facebook">
