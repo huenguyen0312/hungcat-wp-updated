@@ -39,6 +39,126 @@ function hc_map_embed_url() {
 	return $value;
 }
 
+// Image for products without a featured image as [ 'src', 'width', 'height' ]:
+// picked in Theme Settings, or the static sample from hungcat-static
+function hc_product_default_image( $size = 'medium' ) {
+	$id  = function_exists( 'get_field' ) ? get_field( 'product_default_image', 'option' ) : 0;
+	$img = $id ? wp_get_attachment_image_src( $id, $size ) : false;
+	if ( $img ) {
+		return array( 'src' => $img[0], 'width' => $img[1], 'height' => $img[2] );
+	}
+
+	return array( 'src' => get_template_directory_uri() . '/assets/images/product-sample.webp', 'width' => 239, 'height' => 239 );
+}
+
+// Product image URL: featured image, or the default product image
+function hc_product_image( $post = null, $size = 'medium' ) {
+	return get_the_post_thumbnail_url( $post, $size ) ?: hc_product_default_image( $size )['src'];
+}
+
+// Product detail slider as [ [ 'src', 'thumb', 'alt', 'width', 'height' ], ... ].
+// Empty gallery → featured image → default product image, so the slider is never empty.
+function hc_product_gallery( $post_id = null ) {
+	$post_id = $post_id ?: get_the_ID();
+	$ids     = function_exists( 'get_field' ) ? (array) get_field( 'gallery', $post_id ) : array();
+	if ( ! array_filter( $ids ) && has_post_thumbnail( $post_id ) ) {
+		$ids = array( get_post_thumbnail_id( $post_id ) );
+	}
+
+	$slides = array();
+	foreach ( array_filter( $ids ) as $id ) {
+		$img = wp_get_attachment_image_src( $id, 'large' );
+		if ( $img ) {
+			$alt      = get_post_meta( $id, '_wp_attachment_image_alt', true );
+			$slides[] = array(
+				'src'    => $img[0],
+				'thumb'  => wp_get_attachment_image_url( $id, 'thumbnail' ) ?: $img[0],
+				'alt'    => $alt ?: get_the_title( $post_id ),
+				'width'  => $img[1],
+				'height' => $img[2],
+			);
+		}
+	}
+	if ( $slides ) {
+		return $slides;
+	}
+
+	$default = hc_product_default_image( 'large' );
+
+	return array( $default + array( 'thumb' => hc_product_default_image( 'thumbnail' )['src'], 'alt' => get_the_title( $post_id ) ) );
+}
+
+// "Sản phẩm tiêu biểu" cards as [ [ 'url', 'image', 'title' ], ... ]:
+// products picked in Theme Settings (in that order), or the 4 latest products when none are picked
+function hc_featured_products() {
+	$ids   = function_exists( 'get_field' ) ? array_filter( (array) get_field( 'featured_products', 'option' ) ) : array();
+	$posts = get_posts( $ids
+		? array( 'post_type' => 'products', 'post__in' => $ids, 'orderby' => 'post__in', 'posts_per_page' => count( $ids ) )
+		: array( 'post_type' => 'products', 'posts_per_page' => 4 ) );
+
+	return array_map( function ( $post ) {
+		return array(
+			'url'   => get_permalink( $post ),
+			'image' => hc_product_image( $post ),
+			'title' => get_the_title( $post ),
+		);
+	}, $posts );
+}
+
+// Banner in the news/product detail sidebar; empty field → original static image
+function hc_sidebar_banner() {
+	$id  = function_exists( 'get_field' ) ? get_field( 'detail_sidebar_banner', 'option' ) : 0;
+	$img = $id ? wp_get_attachment_image_src( $id, 'medium_large' ) : false;
+	if ( ! $img ) {
+		return array(
+			'src'    => get_template_directory_uri() . '/assets/images/about-us/img-01.webp',
+			'alt'    => '',
+			'width'  => 330,
+			'height' => 220,
+		);
+	}
+
+	return array(
+		'src'    => $img[0],
+		'alt'    => (string) get_post_meta( $id, '_wp_attachment_image_alt', true ),
+		'width'  => 330,
+		'height' => $img[1] && $img[2] ? (int) round( 330 * $img[2] / $img[1] ) : 220,
+	);
+}
+
+// Sidebar list for news/product detail as [ [ 'url', 'image', 'title' ], ... ]:
+// same post type, same category as the current post first, then filled up with the latest posts.
+// No featured image → default product image / news sample image.
+function hc_related_posts( $count = 5, $post_id = null ) {
+	$post_id = $post_id ?: get_the_ID();
+	$args    = array(
+		'post_type'      => get_post_type( $post_id ),
+		'posts_per_page' => $count,
+		'post__not_in'   => array( $post_id ),
+	);
+
+	$categories = wp_get_post_terms( $post_id, 'category', array( 'fields' => 'ids' ) );
+	$posts      = ! is_wp_error( $categories ) && $categories ? get_posts( $args + array( 'category__in' => $categories ) ) : array();
+	if ( count( $posts ) < $count ) {
+		$posts = array_merge( $posts, get_posts( array_merge( $args, array(
+			'posts_per_page' => $count - count( $posts ),
+			'post__not_in'   => array_merge( array( $post_id ), wp_list_pluck( $posts, 'ID' ) ),
+		) ) ) );
+	}
+
+	$fallback = $args['post_type'] === 'products'
+		? hc_product_default_image( 'thumbnail' )['src']
+		: get_template_directory_uri() . '/assets/images/news-sample.webp';
+
+	return array_map( function ( $post ) use ( $fallback ) {
+		return array(
+			'url'   => get_permalink( $post ),
+			'image' => get_the_post_thumbnail_url( $post, 'thumbnail' ) ?: $fallback,
+			'title' => get_the_title( $post ),
+		);
+	}, $posts );
+}
+
 // Certificate images as [ [ 'src' => ..., 'alt' => ... ], ... ]; empty gallery → original static images
 function hc_certificates() {
 	$ids    = function_exists( 'get_field' ) ? get_field( 'contact_certificates', 'option' ) : array();

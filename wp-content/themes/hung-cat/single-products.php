@@ -1,7 +1,6 @@
 <?php
 get_header();
 $images = get_template_directory_uri() . '/assets/images';
-$detailImages = get_field('gallery');
 ?>
   <main class="news-page">
     <div class="breadcrumb">
@@ -29,6 +28,7 @@ $detailImages = get_field('gallery');
     </div>
 	  <?php
 	  while ( have_posts() ) : the_post();
+		  $detailImages = hc_product_gallery();
 		  ?>
         <div class="detail-temp">
           <div class="detail-temp__container container">
@@ -38,23 +38,26 @@ $detailImages = get_field('gallery');
                   <div class="product-detail-slider js-product-detail-slider">
                     <?php foreach ($detailImages as $image) : ?>
                     <div>
-                      <img src="<?= $image['url']?>" alt="" width="<?= $image['width']?>" height="<?= $image['height']?>">
+                      <img src="<?= esc_url( $image['src'] ) ?>" alt="<?= esc_attr( $image['alt'] ) ?>" width="<?= $image['width'] ?>" height="<?= $image['height'] ?>">
                     </div>
                     <?php endforeach; ?>
                   </div>
+                  <?php // Single image (no gallery → featured image only): no thumbnail nav ?>
+                  <?php if ( count( $detailImages ) > 1 ) : ?>
                   <div class="product-detail-nav-wrap js-product-detail-nav-wrap">
                     <button type="button" class="product-detail-nav__arrow product-detail-nav__arrow--prev js-product-detail-nav-prev" aria-label="Ảnh trước"></button>
                     <ul class="product-detail-nav js-product-detail-slider-nav">
                       <?php foreach ($detailImages as $index => $image) : ?>
                       <li class="product-detail-nav__item<?= $index === 0 ? ' active' : '' ?>">
                         <button type="button" class="product-detail-nav__btn" aria-label="Xem ảnh <?= $index + 1 ?>"<?= $index === 0 ? ' aria-current="true"' : '' ?>>
-                          <img src="<?= $image['url']?>" alt="" width="100" height="100">
+                          <img src="<?= esc_url( $image['thumb'] ) ?>" alt="" width="100" height="100">
                         </button>
                       </li>
                       <?php endforeach; ?>
                     </ul>
                     <button type="button" class="product-detail-nav__arrow product-detail-nav__arrow--next js-product-detail-nav-next" aria-label="Ảnh tiếp theo"></button>
                   </div>
+                  <?php endif; ?>
                 </div>
                 <div class="product-detail-right js-animate">
                   <h2 class="product-detail-name"><?php the_title(); ?></h2>

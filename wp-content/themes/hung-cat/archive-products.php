@@ -40,7 +40,7 @@ $posts = new WP_Query( array(
           <li class="product-item js-animate">
             <a href="<?= get_permalink() ?>" class="product-link">
 				<span class="product-image">
-				<img src="<?= get_the_post_thumbnail_url() ?>" alt="<?= get_the_title() ?>">
+				<img src="<?= esc_url( hc_product_image() ) ?>" alt="<?= esc_attr( get_the_title() ) ?>">
 				</span>
               <h3 class="product-name"><?= get_the_title() ?></h3>
             </a>

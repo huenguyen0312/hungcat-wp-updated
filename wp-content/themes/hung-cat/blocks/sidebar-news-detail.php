@@ -1,12 +1,6 @@
 <?php
-$about_us_banner_image = get_field('about_us_banner_image', 'option');
-$relatedNews = get_posts(array(
-  'post_type' => 'post',
-  'posts_per_page' => 5,
-  'orderby' => 'date',
-  'order' => 'DESC',
-  'post__not_in' => array(get_the_ID())
-));
+$banner = hc_sidebar_banner();
+$relatedNews = hc_related_posts();
 
 ?>
 <div class="detail-temp__sidebar js-animate">
@@ -16,11 +10,11 @@ $relatedNews = get_posts(array(
     <ul class="related-news__list">
       <?php foreach ($relatedNews as $news) : ?>
       <li class="related-news__item">
-        <a href="<?= get_permalink($news) ?>" class="related-news__content">
+        <a href="<?= esc_url( $news['url'] ) ?>" class="related-news__content">
           <div class="related-news__image">
-            <img src="<?= get_the_post_thumbnail_url($news) ?>" alt="<?= $news->post_title ?>" width="100" height="100">
+            <img src="<?= esc_url( $news['image'] ) ?>" alt="<?= esc_attr( $news['title'] ) ?>" width="100" height="100">
           </div>
-          <h4 class="related-news__title"><?= $news->post_title ?></h4>
+          <h4 class="related-news__title"><?= esc_html( $news['title'] ) ?></h4>
         </a>
       </li>
       <?php endforeach; ?>
@@ -28,11 +22,7 @@ $relatedNews = get_posts(array(
   </div>
   <?php } ?>
   <div class="news-banner">
-    <picture>
-      <source media="(min-width:768px)" srcset="<?= $about_us_banner_image['pc_image']['url'] ?? '' ?>" type="image/png">
-      <source media="(max-width:767px)" srcset="<?= $about_us_banner_image['sp_image']['url'] ?? '' ?>" type="image/png">
-      <img src="<?= $about_us_banner_image['pc_image']['url'] ?? '' ?>" alt="" width="330" height="220">
-    </picture>
+    <img src="<?= esc_url( $banner['src'] ) ?>" alt="<?= esc_attr( $banner['alt'] ) ?>" width="<?= $banner['width'] ?>" height="<?= $banner['height'] ?>">
   </div>
   <div class="news-sidebar-button">
     <a href="/contact/" class="button">Liên hệ tư vấn</a>

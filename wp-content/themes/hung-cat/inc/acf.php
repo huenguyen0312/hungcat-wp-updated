@@ -364,6 +364,34 @@ if ( function_exists( 'acf_add_local_field_group' ) ) {
 				),
 			),
 			array(
+				'key'   => 'field_hc_tab_featured_products',
+				'label' => 'Sản phẩm',
+				'type'  => 'tab',
+			),
+			array(
+				'key'           => 'field_hc_featured_products',
+				'label'         => 'Sản phẩm tiêu biểu',
+				'name'          => 'featured_products',
+				'type'          => 'relationship',
+				'instructions'  => 'Mục "Sản phẩm tiêu biểu" ở trang chủ (và trang Giới thiệu, Tin tức). Chọn sản phẩm từ cột trái, kéo thả ở cột phải để sắp xếp. Mỗi hàng 4 sản phẩm nên chọn 4 hoặc 8. Để trống sẽ hiển thị 4 sản phẩm mới nhất.',
+				'post_type'     => array( 'products' ),
+				'post_status'   => array( 'publish' ),
+				'filters'       => array( 'search' ),
+				'elements'      => array( 'featured_image' ),
+				'max'           => 8,
+				'return_format' => 'id',
+			),
+			array(
+				'key'           => 'field_hc_product_default_image',
+				'label'         => 'Ảnh mặc định của sản phẩm',
+				'name'          => 'product_default_image',
+				'type'          => 'image',
+				'instructions'  => 'Dùng cho sản phẩm chưa có ảnh đại diện (danh sách sản phẩm, sản phẩm tiêu biểu, sản phẩm khác, slider chi tiết). Nên dùng ảnh vuông, khoảng 600×600px. Để trống sẽ dùng ảnh mẫu mặc định.',
+				'return_format' => 'id',
+				'preview_size'  => 'thumbnail',
+				'mime_types'    => 'jpg,jpeg,png,webp',
+			),
+			array(
 				'key'   => 'field_hc_tab_banner',
 				'label' => 'Banner',
 				'type'  => 'tab',
@@ -535,6 +563,16 @@ if ( function_exists( 'acf_add_local_field_group' ) ) {
 				),
 			),
 			array(
+				'key'           => 'field_hc_detail_sidebar_banner',
+				'label'         => 'Banner sidebar trang chi tiết',
+				'name'          => 'detail_sidebar_banner',
+				'type'          => 'image',
+				'instructions'  => 'Ảnh ở sidebar trang chi tiết tin tức và chi tiết sản phẩm, phía trên nút "Liên hệ tư vấn". Khuyến nghị 660×440px (tỉ lệ 3:2). Chữ mô tả (alt) lấy từ "Văn bản thay thế" của ảnh. Để trống sẽ dùng ảnh mặc định.',
+				'return_format' => 'id',
+				'preview_size'  => 'medium',
+				'mime_types'    => 'jpg,jpeg,png,webp',
+			),
+			array(
 				'key'   => 'field_hc_tab_customer',
 				'label' => 'Đối tác - khách hàng',
 				'type'  => 'tab',
@@ -683,5 +721,33 @@ if ( function_exists( 'acf_add_local_field_group' ) ) {
 			),
 		),
 		'menu_order' => 0,
+	) );
+
+	acf_add_local_field_group( array(
+		'key'      => 'group_hc_product_detail',
+		'title'    => 'Ảnh sản phẩm',
+		'fields'   => array(
+			array(
+				'key'           => 'field_hc_product_gallery',
+				'label'         => 'Danh sách ảnh',
+				'name'          => 'gallery',
+				'type'          => 'gallery',
+				'instructions'  => 'Slider ảnh ở đầu trang chi tiết sản phẩm. Kéo thả để sắp xếp. Nên dùng ảnh cùng tỉ lệ (khoảng 648x359). Để trống sẽ dùng ảnh đại diện của sản phẩm.',
+				'return_format' => 'id',
+				'preview_size'  => 'thumbnail',
+				'insert'        => 'append',
+				'mime_types'    => 'jpg,jpeg,png,webp',
+			),
+		),
+		'location' => array(
+			array(
+				array(
+					'param'    => 'post_type',
+					'operator' => '==',
+					'value'    => 'products',
+				),
+			),
+		),
+		'position' => 'acf_after_title',
 	) );
 }

@@ -30,6 +30,8 @@ function hc_quote_form_markup() {
   [textarea your-message id:content class:form-textarea placeholder "Nội dung"]
 </div>
 
+[response]
+
 <div class="form-group form-button">
   [submit class:button "Gửi liên hệ"]
 </div>
