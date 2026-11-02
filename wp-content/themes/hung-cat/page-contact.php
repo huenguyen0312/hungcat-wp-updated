@@ -43,10 +43,10 @@ $images = get_template_directory_uri() . '/assets/images';
             <?php endif; ?>
           </div>
           <div class="contact-info js-animate">
-            <h3 class="company-name">Công ty Cổ phần Hưng Cát</h3>
+            <h3 class="company-name"><?= esc_html( hc_contact( 'company_name' ) ) ?></h3>
             <p class="company-description">
               Email: <b><span class="text-blue"><?= esc_html( hc_contact( 'contact_email' ) ) ?></span></b><br>
-              Website: <b><span class="text-blue">baobihungcat.com</span></b><br>
+              Website: <b><span class="text-blue"><?= esc_html( hc_contact( 'contact_website' ) ) ?></span></b><br>
               Hotline: <b><span class="text-blue"><?= esc_html( hc_contact( 'contact_hotline' ) ) ?></span></b><br>
               CSKH: <b><span class="text-blue"><?= esc_html( hc_contact( 'contact_cskh', '0834.121193' ) ) ?></span></b><br>
               Thời gian làm việc: <b><?= esc_html( hc_contact( 'contact_work_hours' ) ) ?> từ <?= esc_html( hc_contact( 'contact_work_days' ) ) ?></b><br>
@@ -54,7 +54,7 @@ $images = get_template_directory_uri() . '/assets/images';
             <div class="map">
               <div class="iframe">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3669.7290453851856!2d106.14862474415844!3d20.407977411633407!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135de101d6109f9%3A0xa8c001c45f5044a3!2zTeG7uSBYw6EsIFRQLiBOYW0gxJDhu4tuaCwgTmFtIMSQ4buLbmgsIFZp4buHdCBOYW0!5e1!3m2!1svi!2s!4v1726630021859!5m2!1svi!2s"
+                  src="<?= esc_url( hc_map_embed_url() ) ?>"
                   style="border:0;" allowfullscreen="" loading="lazy"
                   referrerpolicy="no-referrer-when-downgrade"></iframe>
               </div>

@@ -96,7 +96,7 @@ function hc_quote_form_styles() {
 .contact .wpcf7 form .wpcf7-response-output{border-radius:8px;color:#fff;margin:20px 0 0;text-align:center}
 .contact-main .wpcf7 form .wpcf7-response-output{border-radius:8px;margin:20px 0 0;text-align:center}
 .contact-main .form-note{border-top-color:#e5e5e5;color:#666}
-.contact-main .form textarea.form-textarea{height:calc(3 * 1.5em + 20px)}
+.form textarea.form-textarea{height:calc(3 * 1.5em + 20px)}
 ' );
 }
 

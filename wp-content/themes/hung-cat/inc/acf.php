@@ -15,7 +15,7 @@ if ( function_exists( 'acf_add_local_field_group' ) ) {
 				'label'       => 'Tên công ty',
 				'name'        => 'company_name',
 				'type'        => 'text',
-				'instructions' => 'Hiển thị cạnh logo ở footer.',
+				'instructions' => 'Hiển thị cạnh logo ở footer và ở trang Liên hệ.',
 				'placeholder' => hc_contact_defaults()['company_name'],
 			),
 			array(
@@ -76,6 +76,22 @@ if ( function_exists( 'acf_add_local_field_group' ) ) {
 				'name'          => 'contact_address',
 				'type'          => 'text',
 				'placeholder'   => hc_contact_defaults()['contact_address'],
+			),
+			array(
+				'key'           => 'field_hc_contact_website',
+				'label'         => 'Website',
+				'name'          => 'contact_website',
+				'type'          => 'text',
+				'instructions'  => 'Hiển thị ở trang Liên hệ. Ví dụ: baobihungcat.com',
+				'placeholder'   => hc_contact_defaults()['contact_website'],
+			),
+			array(
+				'key'           => 'field_hc_contact_map',
+				'label'         => 'Bản đồ Google Maps',
+				'name'          => 'contact_map',
+				'type'          => 'textarea',
+				'rows'          => 3,
+				'instructions'  => 'Bản đồ ở trang Liên hệ. Trên Google Maps chọn Chia sẻ → Nhúng bản đồ → Sao chép HTML, rồi dán vào đây (dán cả đoạn &lt;iframe&gt; hoặc chỉ link trong src đều được). Để trống sẽ dùng bản đồ mặc định.',
 			),
 			array(
 				'key'           => 'field_hc_contact_work_hours',

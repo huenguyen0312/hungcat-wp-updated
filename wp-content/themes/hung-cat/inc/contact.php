@@ -7,6 +7,8 @@ function hc_contact_defaults() {
 		'contact_cskh'       => '0834.121.193',
 		'contact_email'      => 'vthungcat@gmail.com',
 		'contact_address'    => 'Km110+500 quốc lộ 10, phường Mỹ Xá, thành phố Nam Định, tỉnh Nam Định',
+		'contact_website'    => 'baobihungcat.com',
+		'contact_map'        => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3669.7290453851856!2d106.14862474415844!3d20.407977411633407!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135de101d6109f9%3A0xa8c001c45f5044a3!2zTeG7uSBYw6EsIFRQLiBOYW0gxJDhu4tuaCwgTmFtIMSQ4buLbmgsIFZp4buHdCBOYW0!5e1!3m2!1svi!2s!4v1726630021859!5m2!1svi!2s',
 		'contact_work_hours' => '07h15-17h00',
 		'contact_work_days'  => 'thứ 2 - thứ 7',
 		'contact_messenger'  => 'https://www.facebook.com/profile.php?id=61564076172519',
@@ -25,6 +27,16 @@ function hc_contact( $key, $fallback = null ) {
 	}
 
 	return $fallback ?? hc_contact_defaults()[ $key ] ?? '';
+}
+
+// Google Maps embed URL; the field accepts either the URL or the whole <iframe> code copied from Google Maps
+function hc_map_embed_url() {
+	$value = hc_contact( 'contact_map' );
+	if ( preg_match( '/src=["\']([^"\']+)["\']/i', $value, $m ) ) {
+		$value = html_entity_decode( $m[1] );
+	}
+
+	return $value;
 }
 
 // Certificate images as [ [ 'src' => ..., 'alt' => ... ], ... ]; empty gallery → original static images
